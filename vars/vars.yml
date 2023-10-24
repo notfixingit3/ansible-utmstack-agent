@@ -1,0 +1,5 @@
+# UTMStack Hostname or IP
+UTM_HOST: name
+
+# UTMStack Key - You can get this from the linux agent integrations
+UTM_KEY:
