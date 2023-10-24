@@ -8,3 +8,8 @@
   when: >
     ansible_distribution in ["Ubuntu"] and
     ansible_distribution_version in ["16.04", "18.04", "21.04"]
+
+- import_playbook: subtasks/agent-install-alma.yml
+  when: >
+    ansible_distribution in ["AlmaLinux"] and
+    ansible_distribution_version in ["9.0", "9.1", "9.2"]

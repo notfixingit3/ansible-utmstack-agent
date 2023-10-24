@@ -1,0 +1,33 @@
+---
+- name: Install UTMStack Agent on AlmaLinux
+  hosts: all
+  vars_files:
+    - "../../vars/vars.yml"
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Upgrade all packages and package cache
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    - name: Create directory if it does not exist
+      ansible.builtin.file:
+        path: /opt/utmstack-linux-agent
+        state: directory
+        mode: '0755'
+
+    - name: Download UTMStack Agent
+      ansible.builtin.get_url:
+        url: https://storage.googleapis.com/utmstack-updates/runner/release/utmstackagent-linux
+        dest: /opt/utmstack-linux-agent/utmstackagent-linux
+
+    - name: Change permissions on agent
+      ansible.builtin.file:
+        path: /opt/utmstack-linux-agent/utmstackagent-linux
+        mode: '0777'
+
+    - name: Silent install agent
+      ansible.builtin.command: /opt/utmstack-linux-agent/utmstackagent-linux silent-install {{ UTM_HOST }} {{ UTM_KEY }} yes
