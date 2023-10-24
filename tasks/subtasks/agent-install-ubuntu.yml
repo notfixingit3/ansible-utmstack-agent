@@ -1,6 +1,6 @@
 ---
 - name: Install UTMStack Agent on Ubuntu
-  hosts: wg_vpn
+  hosts: all
   vars_files:
     - "../../vars/vars.yml"
   become: true
