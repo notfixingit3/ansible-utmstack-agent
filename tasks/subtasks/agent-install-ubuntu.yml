@@ -12,6 +12,21 @@
         update_cache: yes
         upgrade: dist
 
-    - name:
-      ansible.builtin.apt:
-        name: foo
+    - name: Create directory if it does not exist
+      ansible.builtin.file:
+        path: /opt/utmstack-linux-agent
+        state: directory
+        mode: '0755'
+
+    - name: Download UTMStack Agent
+      ansible.builtin.get_url:
+        url: https://storage.googleapis.com/utmstack-updates/runner/release/utmstackagent-linux
+        dest: /opt/utmstack-linux-agent/utmstackagent-linux
+
+    - name: Change permissions on agent
+      ansible.builtin.file:
+        path: /opt/utmstack-linux-agent/utmstackagent-linux
+        mode: '0777'
+
+    - name: Silent install agent
+      ansible.builtin.command: /opt/utmstack-linux-agent/utmstackagent-linux silent-install {{ UTM_HOST }} {{ UTM_KEY }} yes
