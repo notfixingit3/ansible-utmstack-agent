@@ -1,0 +1,4 @@
+---
+# Tasks file for UTMStack Agent
+
+- import_playbook: subtasks/agent-install-ubuntu.yml

@@ -1,0 +1,17 @@
+---
+- name: Install UTMStack Agent on Ubuntu
+  hosts: wg_vpn
+  vars_files:
+    - "../../vars/vars.yml"
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Upgrade all packages and package cache
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name:
+      ansible.builtin.apt:
+        name: foo
