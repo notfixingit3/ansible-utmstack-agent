@@ -1,6 +1,6 @@
 ---
 - name: Install UTMStack Agent on Ubuntu
-  hosts: all
+  hosts: all:!utm
   vars_files:
     - "../../vars/vars.yml"
   become: true
